@@ -23,21 +23,31 @@ const coefficients: number[][] = [
   [1.000, 0.955, 0.922, 0.892, 0.863, 0.837, 0.811, 0.786, 0.762, 0.739, 0.707, 0.680, 0.654, 0.629, 0.605]
 ]
 
-const validateFields = (liftedWeight: number, liftedReps: number): string[] => {
-  let errors: string[] = []
+const isNumber = (value: number): boolean => {
+  return typeof value === 'number' && !isNaN(value)
+}
 
-  liftedWeight === undefined && errors.push('Lifted weight is required')
-  liftedReps === undefined && errors.push('Lifted repetitions is required')
+const isGreaterThan = (value: number, comparator: number): boolean => {
+  return value >= comparator
+}
 
-  liftedWeight && isNaN(liftedWeight) && errors.push('Lifted weight must be a number')
-  liftedReps && isNaN(liftedReps) && errors.push('Lifted repetitions must be a number')
-
-  return errors
+const isGender = (gender: string): boolean => {
+  return gender === 'male' || gender === 'female'
 }
 
 export const calculateWeightToLift = (
   rm: number, desiredReps: number, desiredRpe: number
 ): number => {
+  let errors: string[] = []
+ 
+  !isNumber(rm) && errors.push('rm must be a number')
+  !isNumber(desiredReps) && errors.push('desiredReps must be a number')
+  !isNumber(desiredRpe) && errors.push('desiredRpe must be a number')
+
+  if (errors.length) {
+    throw new Error(errors.toString())
+  }
+
   const wantedRpe: number[] = coefficients[desiredRpe]
   const coeffForRecommendedWeight: number = wantedRpe[desiredReps - 1]
 
@@ -46,20 +56,16 @@ export const calculateWeightToLift = (
 
 export const calculateOneRepMaxTuchscherer = (
   liftedRpe: number, liftedReps: number, liftedWeight: number
-): number | Error => {
+): number => {
+    let errors: string[] = []
+ 
+  !isNumber(liftedRpe) && errors.push('liftedRpe must be a number')
+  !isGreaterThan(liftedRpe, MINIMUM_RPE) && errors.push(`liftedRpe must be greater than ${MINIMUM_RPE}`)
+  !isNumber(liftedReps) && errors.push('liftedReps must be a number')
+  !isNumber(liftedWeight) && errors.push('liftedWeight must be a number')
 
-  if (liftedRpe === undefined) {
-    return new Error("Rate of perceived excertion is required")
-  } else if (Number(liftedRpe) < 6.5) {
-    return new Error("Rate of perceived excertion must be minimum 6.5")
-  }
-
-  if (liftedReps === undefined) {
-    return new Error("Lifted reps is required")
-  }
-
-  if (liftedWeight === undefined) {
-    return new Error("Lifted weight is required")
+  if (errors.length) {
+    throw new Error(errors.toString())
   }
 
   const rpe = convertLiftedRpeToIndex(liftedRpe)
@@ -72,10 +78,13 @@ export const calculateOneRepMaxTuchscherer = (
 export const calculateOneRepMaxEpley = (
   liftedWeight: number, liftedReps: number
 ): number | string[] => {
+  let errors: string[] = []
+ 
+  !isNumber(liftedWeight) && errors.push('liftedWeight must be a number')
+  !isNumber(liftedReps) && errors.push('liftedReps must be a number')
 
-  const errors = validateFields(liftedWeight, liftedWeight)
-  if (errors && errors.length) {
-    return errors
+  if (errors.length) {
+    throw new Error(errors.toString())
   }
 
   return liftedWeight * (1 + liftedReps / 30)
@@ -84,10 +93,13 @@ export const calculateOneRepMaxEpley = (
 export const calculateOneRepMaxBrzycki = (
   liftedWeight: number, liftedReps: number
 ): number | string[] => {
+  let errors: string[] = []
+ 
+  !isNumber(liftedWeight) && errors.push('liftedWeight must be a number')
+  !isNumber(liftedReps) && errors.push('liftedReps must be a number')
 
-  const errors = validateFields(liftedWeight, liftedWeight)
-  if (errors && errors.length) {
-    return errors
+  if (errors.length) {
+    throw new Error(errors.toString())
   }
 
   return liftedWeight / (1.0278 - 0.0278 * liftedReps)
@@ -96,10 +108,13 @@ export const calculateOneRepMaxBrzycki = (
 export const calculateOneRepMaxLombardi = (
   liftedWeight: number, liftedReps: number
 ): number | string[] => {
+  let errors: string[] = []
+ 
+  !isNumber(liftedWeight) && errors.push('liftedWeight must be a number')
+  !isNumber(liftedReps) && errors.push('liftedReps must be a number')
 
-  const errors = validateFields(liftedWeight, liftedWeight)
-  if (errors && errors.length) {
-    return errors
+  if (errors.length) {
+    throw new Error(errors.toString())
   }
 
   return liftedWeight * Math.pow(liftedReps, 0.10)
@@ -108,10 +123,13 @@ export const calculateOneRepMaxLombardi = (
 export const calculateOneRepMaxOConner = (
   liftedWeight: number, liftedReps: number
 ): number | string[] => {
+  let errors: string[] = []
+ 
+  !isNumber(liftedWeight) && errors.push('liftedWeight must be a number')
+  !isNumber(liftedReps) && errors.push('liftedReps must be a number')
 
-  const errors = validateFields(liftedWeight, liftedWeight)
-  if (errors && errors.length) {
-    return errors
+  if (errors.length) {
+    throw new Error(errors.toString())
   }
 
   return liftedWeight * (1 + 0.025 * liftedReps)
