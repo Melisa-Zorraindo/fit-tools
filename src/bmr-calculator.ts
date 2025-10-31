@@ -1,26 +1,14 @@
-type GenderType = 'male' | 'female'
-type BmrCoeficcientType = {
-  baseline: number,
-  weight: number,
-  height: number,
-  age: number
-}
+import { BMR_COEFFICIENTS } from "./constants"
+import type { GenderType } from "./types"
 
-const BMR_COEFFICIENTS: Record<GenderType, BmrCoeficcientType> = {
-  male: {
-    baseline: 88.36,
-    weight: 13.4,
-    height: 4.8,
-    age: 5.7
-  },
-  female: {
-    baseline: 447.6,
-    weight: 9.2,
-    height: 3.1,
-    age: 4.3
-  }
-}
-
+/**
+ * Calculate the Basal Metabolic Rate (BMR) using the Harris-Benedict equation.
+ * @param {GenderType} gender - The gender of the person ('male' or 'female')
+ * @param {number} age - Age in years (integer)
+ * @param {number} weight - Weight in kilograms (integer or floating-point)
+ * @param {number} height - Height in centimeters (integer)
+ * @returns {number} The calculated BMR rounded down to the nearest integer
+ */
 export const calculateBmr = (
   gender: GenderType, age: number, weight: number, height: number
 ): number => {

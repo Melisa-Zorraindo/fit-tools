@@ -1,25 +1,13 @@
-type GoalType = 'moderateLose' |
-  'mildLose' |
-  'maintain' |
-  'mildGain' |
-  'moderateGain';
-type ActivityLevelType = 'sedentary' | 'light' | 'moderate' | 'heavy';
+import { ACTIVITY_LEVEL_COEFFICIENTS, GOAL_MULTIPLIERS } from "./constants";
+import type { ActivityLevelType, GoalType } from "./types";
 
-const ACTIVITY_LEVEL_COEFFICIENTS: Record<ActivityLevelType, number> = {
-  sedentary: 1.2,
-  light: 1.375,
-  moderate: 1.55,
-  heavy: 1.725,
-};
-
-const GOAL_MULTIPLIERS: Record<GoalType, number> = {
-  moderateLose: 0.85,
-  mildLose: 0.9,
-  maintain: 1,
-  mildGain: 1.1,
-  moderateGain: 1.15,
-};
-
+/**
+ * Calculates Total Daily Energy Expenditure (TDEE) based on BMR, activity level and goal
+ * @param {number} bmr - Basal Metabolic Rate in calories (integer)
+ * @param {ActivityLevelType} activityLevel - Activity level ('sedentary', 'light', 'moderate', 'heavy')
+ * @param {GoalType} goal - Weight management goal ('moderateLose', 'mildLose', 'maintain', 'mildGain', 'moderateGain')
+ * @returns {number} The calculated TDEE in calories
+ */
 export const calculateTdee = (
   bmr: number, activityLevel: ActivityLevelType, goal: GoalType
 ): number => {
