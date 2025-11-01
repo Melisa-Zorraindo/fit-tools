@@ -18,7 +18,7 @@ A lightweight TypeScript library providing essential calculations for weightlift
 ## Installation
 
 ```bash
-npm install fitness-calculators
+npm install fit-tools
 ```
 
 ## Usage
