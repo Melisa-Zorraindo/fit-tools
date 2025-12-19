@@ -17,10 +17,12 @@
   ],
   "scripts": {
     "build": "tsdown",
-    "watch": "tsdown --watch"
+    "watch": "tsdown --watch",
+    "test": "tsx --test --experimental-test-coverage"
   },
   "devDependencies": {
     "tsdown": "^0.15.11",
+    "tsx": "^4.21.0",
     "typescript": "^5.8.3"
   },
   "engines": {
