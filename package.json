@@ -1,6 +1,6 @@
 {
   "name": "fit-tools",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A lightweight TypeScript library to support weightlifting and diet planning.",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -17,14 +17,16 @@
   ],
   "scripts": {
     "build": "tsdown",
-    "watch": "tsdown --watch"
+    "watch": "tsdown --watch",
+    "test": "tsx --test --experimental-test-coverage"
   },
   "devDependencies": {
     "tsdown": "^0.15.11",
+    "tsx": "^4.21.0",
     "typescript": "^5.8.3"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=20.0.0"
   },
   "keywords": [
     "calculator",
@@ -36,17 +38,17 @@
     "typescript"
   ],
   "author": "Melisa Zorraindo <melisa.zorraindo@gmail.com> (https://melisazor.com/)",
-  "license": "MIT",
+  "license": "Unlicense",
   "module": "./dist/index.js",
-  "homepage": "https://github.com/Melisa-Zorraindo/fitness-calculators-package/blob/main/README.md",
+  "homepage": "https://github.com/Melisa-Zorraindo/fit-tools/blob/main/README.md",
   "bugs": {
-    "url": "https://github.com/Melisa-Zorraindo/fitness-calculators-package/issues",
+    "url": "https://github.com/Melisa-Zorraindo/fit-tools/issues",
     "email": "melisa.zorraindo@gmail.com"
   },
   "repository": {
     "repository": {
       "type": "git",
-      "url": "https://github.com/Melisa-Zorraindo/fitness-calculators-package"
+      "url": "https://github.com/Melisa-Zorraindo/fit-tools"
     }
   }
 }

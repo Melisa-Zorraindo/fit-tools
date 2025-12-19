@@ -11,6 +11,25 @@ import type { ActivityLevelType, GoalType } from "./types";
 export const calculateTdee = (
   bmr: number, activityLevel: ActivityLevelType, goal: GoalType
 ): number => {
+  if (
+    activityLevel !== "sedentary" &&
+    activityLevel !== "light" &&
+    activityLevel !== "moderate" &&
+    activityLevel !== "heavy"
+  ) {
+    throw new Error("Activity level must be one of: 'sedentary', 'light', 'moderate', 'heavy'");
+  };
+
+  if (
+    goal !== "moderateLose" &&
+    goal !== "mildLose" &&
+    goal !== "maintain" &&
+    goal !== "mildGain" &&
+    goal !== "moderateGain"
+  ) {
+    throw new Error("Goal must be one of: 'moderateLose', 'mildLose', 'maintain', 'mildGain', 'moderateGain'");
+  };
+
   const activityCoefficient = ACTIVITY_LEVEL_COEFFICIENTS[activityLevel];
   const goalMultiplier = GOAL_MULTIPLIERS[goal];
   return bmr * activityCoefficient * goalMultiplier;

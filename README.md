@@ -1,19 +1,23 @@
-# Fitness Calculators
+# Fitness tools
 
-A lightweight TypeScript library providing essential calculations for weightlifting and diet planning. Includes BMR (Basal Metabolic Rate), TDEE (Total Daily Energy Expenditure), macronutrient ratios, and various one-rep max estimation formulas.
+A lightweight TypeScript library for common strength training and nutrition calculations.
+It provides formulas for energy expenditure, macronutrients, and one-rep max estimations, designed for use in Node.js and modern frontend frameworks.
 
 ## Features
 
-- BMR calculation using Harris-Benedict equation
-- TDEE calculation with activity level and goal adjustments
-- Macronutrient distribution calculator
-- One Rep Max calculators:
-  - Brzycki formula
-  - Epley formula
-  - Lombardi formula
-  - O'Conner formula
-  - Tuchscherer formula (RPE-based)
-- Weight to lift calculator based on RPE, reps and 1RM
+**Energy & nutrition**
+- BMR (Basal Metabolic Rate) using the Harris–Benedict equation
+- TDEE (Total Daily Energy Expenditure) with activity level and goal adjustments
+- Daily macronutrient distribution calculator
+
+**Strength training**
+- One-rep max (1RM) estimation formulas:
+  - Brzycki
+  - Epley
+  - Lombardi
+  - O’Conner
+  - Tuchscherer (RPE-based)
+- Weight-to-lift calculator based on target reps, RPE, and 1RM
 
 ## Installation
 
@@ -23,60 +27,175 @@ npm install fit-tools
 
 ## Usage
 
-This package can be used in Node.js applications and modern browsers through frameworks like React, Vue, Svelte, etc.
+This package works in Node.js (Node 20+) and in modern frontend frameworks such as React, Vue, and Svelte.
 
-### ESM Import
+### Importing
+
+**Using EMS**
 ```typescript
-import { calculateBmr, calculateTdee, calculateMacros } from 'fitness-calculators';
+import { calculateBmr, calculateTdee, calculateMacros } from 'fit-tools';
 ```
-
-### CommonJS Require
+**Using CommonJS**
 ```javascript
-const { calculateBmr, calculateTdee, calculateMacros } = require('fitness-calculators');
+const { calculateBmr, calculateTdee, calculateMacros } = require('fit-tools');
 ```
 
-### Examples
+### Calculations
 
-Calculate BMR:
+#### Basal Metabolic Rate (BMR)
+
+Calculates daily calories burned at rest using the Harris-Benedict equation.
+
+*Parameters*
+
+- gender: 'male' | 'female'
+- age: integer
+- weight: integer | float - in kilograms
+- height: integer - in centimeters
+
+*Returns*
+- bmr: integer - in calories. Rounded down
+
+*Example*
 ```typescript
 const bmr = calculateBmr('female', 30, 65, 170);
 ```
 
-Calculate TDEE:
+#### Total Daily Energy Expenditure (TDEE)
+
+Calculates daily calorie needs based on BMR, activity level, and goal.
+
+*Parameters*
+
+- bmr: integer - in calories
+- activityLevel: 'sedentary' | 'light' | 'moderate' | 'heavy'
+- goal: 'moderateLose' | 'mildLose' | 'maintain' | 'mildGain' | 'moderateGain'
+
+*Returns*
+
+- tdee: integer - in calories
+
+*Example*
 ```typescript
 const tdee = calculateTdee(bmr, 'moderate', 'maintain');
 ```
 
-Calculate macronutrients:
+#### Macronutrients
+
+Calculates daily grams of carbohydrates, fat, and protein from a given TDEE.
+
+*Parameters*
+
+- tdee: integer - in calories
+- carbs?: integer - percentage of calories from carbs (0-100)
+- fat?: integer - percentage of calories from fat (0-100)
+- protein?: integer - percentage of calories from protein (0-100). Must be provided if weight is not provided
+- weight?: integer | float - in kilograms. Must be provided if protein is not provided
+
+> Macronutrient percentages must total 100 when all are provided. If protein is omitted, its percentage is calculated as 100 - carbs - fat.
+
+*Returns*
+
+- macros: { carbs: integer, fat: integer, protein: integer} - grams of each macro per day
+
+*Examples*
+
+Using protein percentage:
 ```typescript
 const macros = calculateMacros(2000, 40, 30, 30);
-// or using body weight for protein calculation
+```
+Using body weight:
+```typescript
 const macros = calculateMacros(2000, 40, 30, undefined, 65);
 ```
 
-Calculate one rep max:
+#### One-Rep Max (1RM) estimation
+
+All 1RM functions return a number rounded to one decimal place.
+
+##### Brzycki formula
+
+*Parameters*
+
+- liftedReps: integer - repetitions performed
+- liftedWeight: integer | float - lifted weight in kilograms
+
+*Example*
 ```typescript
 const orm = calculateOneRepMaxBrzycki(5, 100);
 ```
 
-Calculate weight to lift:
+##### Epley formula
+
+*Parameters*
+
+- liftedReps: integer - repetitions performed
+- liftedWeight: integer | float - lifted weight in kilograms
+
+*Example*
+```typescript
+const orm = calculateOneRepMaxEpley(5, 100);
+```
+
+##### Lombardi formula
+
+*Parameters*
+
+- liftedReps: integer - repetitions performed
+- liftedWeight: integer | float - lifted weight in kilograms
+
+*Example*
+```typescript
+const orm = calculateOneRepMaxLombardi(5, 100);
+```
+
+##### O'Conner formula
+
+*Parameters*
+
+- liftedReps: integer - repetitions performed
+- liftedWeight: integer | float - lifted weight in kilograms
+
+*Example*
+```typescript
+const orm = calculateOneRepMaxOConner(5, 100);
+```
+
+##### Tuchscherer formula
+
+Estimates one-rep max using reps, RPE (rate of perceived exertion), and lifted weight.
+
+*Parameters*
+
+- liftedReps: integer - repetitions performed
+- liftedRpe: integer | float - rate of perceived exertion. Valid range: 6.5 to 10, in increments of 0.5
+- liftedWeight: integer | float - lifted weight in kilograms
+
+*Example*
+```typescript
+const orm = calculateOneRepMaxTuchscherer(5, 8.5, 100);
+```
+
+#### Estimated weight to lift
+
+Calculates the recommended training weight, given a known one-rep max.
+
+> Although it uses similar inputs to the Tuchscherer formula, this function does not estimate 1RM — it derives a working weight from an existing 1RM.
+
+*Parameters*
+
+- desiredReps: integer - repetitions to perform
+- desiredRpe: integer | float - desired rate of perceived exertion. Valid range: 6.5 to 10, in increments of 0.5
+- oneRepMax: integer | float - in kilograms
+
+*Example*
 ```typescript
 const weight = calculateWeightToLift(5, 8, 100);
 ```
 
 ## Important Note
 
-This library does not include input validation. Users are responsible for validating inputs according to these guidelines:
-
-- All numerical inputs should be positive numbers
-- Weight values should be in kilograms
-- Height should be in centimeters
-- Age should be in years
-- RPE values should be between 6.5 and 10
-- Macronutrient percentages should sum to 100 if all three are provided
-- Activity levels must be: 'sedentary', 'light', 'moderate', or 'heavy'
-- Goals must be: 'moderateLose', 'mildLose', 'maintain', 'mildGain', or 'moderateGain'
-- Gender must be: 'male' or 'female'
+This library does not perform input validation in order to remain lightweight and focused on calculations. Make sure all inputs are validated in your application to avoid unreliable results.
 
 ## Contributing
 
@@ -95,7 +214,7 @@ Please ensure your PR:
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the Unlicense License - see the LICENSE file for details.
 
 ## Support
 
