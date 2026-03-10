@@ -1,5 +1,5 @@
-import { BMR_COEFFICIENTS } from "./constants"
-import type { GenderType } from "./types"
+import { BMR_COEFFICIENTS } from "./constants.js"
+import type { GenderType } from "./types.js"
 
 /**
  * Calculate the Basal Metabolic Rate (BMR) using the Harris-Benedict equation.

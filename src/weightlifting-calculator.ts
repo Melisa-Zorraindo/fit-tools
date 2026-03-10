@@ -1,5 +1,5 @@
-import { COEFFICIENTS } from "./constants"
-import { convertLiftedRpeToIndex } from "./convertLiftedRpeToIndex"
+import { COEFFICIENTS } from "./constants.js"
+import { convertLiftedRpeToIndex } from "./convertLiftedRpeToIndex.js"
 
 /**
  * Calculates one rep max using the Brzycki formula
