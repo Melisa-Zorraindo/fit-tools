@@ -1,4 +1,4 @@
-import type { ActivityLevelType, BmrCoeficcientType, GenderType, GoalType } from "./types"
+import type { ActivityLevelType, BmrCoeficcientType, GenderType, GoalType } from "./types.js"
 
 /* ================================================== 
           constants used in the bmr calculator

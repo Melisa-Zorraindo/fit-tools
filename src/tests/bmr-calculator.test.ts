@@ -1,7 +1,8 @@
 import assert from 'node:assert';
 import { describe, it } from 'node:test';
-import { getRandomFloat, getRandomInt } from './utils.test';
-import { calculateBmr } from '../bmr-calculator'
+import { getRandomFloat, getRandomInt } from './utils.test.js';
+import { calculateBmr } from '../bmr-calculator.js'
+import { GenderType } from '../types.js';
 
 describe("bmr-calculator properties", () => {
   it("BMR increases with weight", () => {
@@ -16,7 +17,7 @@ describe("bmr-calculator properties", () => {
     const height = getRandomInt(120, 200);
 
     assert.ok(
-      calculateBmr(gender, age, weight1, height) > 
+      calculateBmr(gender, age, weight1, height) >
       calculateBmr(gender, age, weight2, height)
     );
   })
@@ -52,7 +53,8 @@ describe("bmr-calculator properties", () => {
   })
 
   it("throws error on incorrect gender", () => {
-    const gender = "foo"
+    // use a cast so TypeScript allows the invalid value we intend to test
+    const gender = "foo" as unknown as GenderType;
     const age = getRandomInt(25, 90)
     const weight = Math.random() > 0.5
       ? getRandomInt(55, 230)

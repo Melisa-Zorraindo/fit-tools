@@ -1,5 +1,5 @@
-import { CARBS_CALORIES, FAT_CALORIES, PROTEIN_CALORIES } from "./constants"
-import type { Macros } from "./types"
+import { CARBS_CALORIES, FAT_CALORIES, PROTEIN_CALORIES } from "./constants.js"
+import type { Macros } from "./types.js"
 
 /**
  * Calculates daily macronutrient requirements based on TDEE

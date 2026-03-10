@@ -1,5 +1,5 @@
-import { ACTIVITY_LEVEL_COEFFICIENTS, GOAL_MULTIPLIERS } from "./constants";
-import type { ActivityLevelType, GoalType } from "./types";
+import { ACTIVITY_LEVEL_COEFFICIENTS, GOAL_MULTIPLIERS } from "./constants.js";
+import type { ActivityLevelType, GoalType } from "./types.js";
 
 /**
  * Calculates Total Daily Energy Expenditure (TDEE) based on BMR, activity level and goal

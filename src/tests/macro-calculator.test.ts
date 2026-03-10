@@ -1,7 +1,7 @@
 import assert from 'node:assert';
 import { describe, it } from 'node:test';
-import { getRandomFloat, getRandomInt } from './utils.test';
-import { calculateMacros } from '../macro-calculators'
+import { getRandomFloat, getRandomInt } from './utils.test.js';
+import { calculateMacros } from '../macro-calculators.js'
 
 describe("macro-calculator", () => {
   it("macronutrients' sum is less or equal than tdee", () => {
@@ -26,12 +26,12 @@ describe("macro-calculator", () => {
 
     assert.deepStrictEqual(result1, result2);
   });
-  
+
   it("if protein is not provided, weight must determine grams of protein", () => {
     const tdee = getRandomInt(1800, 2400);
     const weight1 = getRandomInt(50, 200);
     let weight2 = getRandomInt(50, 200);
-    while(weight2 === weight1) {
+    while (weight2 === weight1) {
       weight2 = getRandomInt(50, 200);
     }
 
