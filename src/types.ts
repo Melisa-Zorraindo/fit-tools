@@ -28,21 +28,3 @@ export type GoalType = 'moderateLose' |
   'mildGain' |
   'moderateGain';
 
-/* ================================================== 
-          Types used in the body fat calculator
-   ================================================== */
-export type BodyFatParams =
-  | {
-      gender: 'male';
-      waist: number;
-      neck: number;
-      height: number;
-      hip?: never
-    }
-  | {
-      gender: 'female';
-      waist: number;
-      neck: number;
-      height: number;
-      hip: number
-    }

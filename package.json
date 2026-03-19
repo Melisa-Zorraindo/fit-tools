@@ -18,7 +18,7 @@
   "scripts": {
     "build": "tsdown",
     "watch": "tsdown --watch",
-    "test": "tsx --test --test-only --experimental-test-coverage"
+    "test": "tsx --test --experimental-test-coverage"
   },
   "devDependencies": {
     "@types/node": "^25.4.0",
