@@ -2,18 +2,18 @@ import { calculateBodyFatPercentage } from 'bodyFat-calculator.js';
 import assert from 'node:assert';
 import { describe, it } from 'node:test';
 import { getInvalidValue, getValidValue, ROUNDS } from './utils.test.js';
-import { GenderType } from 'types.js';
+import { Gender } from '../types.js';
 
 describe("bodyFat-calculator properties", () => {
   it("body fat percentage decreases with height", () => {
     for (let i = 0; i < ROUNDS; i++) {
-      const gender: GenderType = Math.random() > 0.5 ? "male" : "female";
+      const gender = Math.random() > 0.5 ? Gender.male : Gender.female;
       const waist = getValidValue(60, 120);
       const neck = getValidValue(30, 50);
       const hip = getValidValue(85, 130);
       const heightOne = getValidValue(50, 100);
       const heightTwo = getValidValue(101, 251);
-      const params = gender === 'male'
+      const params = Gender.male
         ? { gender, waist, neck }
         : { gender, waist, neck, hip }
 
@@ -39,10 +39,10 @@ describe("bodyFat-calculator properties", () => {
       const neck = getValidValue(30, 50);
       const hip = getValidValue(85, 130);
       const height = getValidValue(50, 251);
-      const male: GenderType = 'male'
+      const male = Gender.male
       const maleParams = { gender: male, waist, neck, height }
       const maleParamsWithHip = { gender: male, waist, neck, height, hip }
-      
+
       const maleResult = calculateBodyFatPercentage(male, waist, neck, height)
       const maleResultWithHip = calculateBodyFatPercentage(male, waist, neck, height, hip)
 
@@ -59,7 +59,7 @@ describe("bodyFat-calculator properties", () => {
       const waist = getValidValue(60, 120);
       const neck = getValidValue(30, 50);
       const height = getValidValue(50, 251);
-      const female: GenderType = 'female'
+      const female = Gender.female
       const femaleParamsWithNoHip = { gender: female, waist, neck, height }
 
       const result = calculateBodyFatPercentage(female, waist, neck, height)
@@ -72,7 +72,7 @@ describe("bodyFat-calculator properties", () => {
 
   it("increases in circumference increase body fat percentage", () => {
     for (let i = 0; i < ROUNDS; i++) {
-      const gender: GenderType = Math.random() > 0.5 ? "male" : "female";
+      const gender = Math.random() > 0.5 ? Gender.male : Gender.female;
       const waistOne = getValidValue(60, 85);
       const waistTwo = getValidValue(105, 120);
       const neckOne = getValidValue(30, 35);
@@ -80,10 +80,10 @@ describe("bodyFat-calculator properties", () => {
       const hipOne = getValidValue(85, 90);
       const hipTwo = getValidValue(115, 130);
       const height = getValidValue(50, 251);
-      const paramsOne = gender === 'male'
+      const paramsOne = Gender.male
         ? { gender, waist: waistOne, neck: neckOne, height }
         : { gender, waist: waistOne, neck: neckOne, height, hip: hipOne }
-      const paramsTwo = gender === 'male'
+      const paramsTwo = Gender.male
         ? { gender, waist: waistTwo, neck: neckTwo, height }
         : { gender, waist: waistTwo, neck: neckTwo, height, hip: hipTwo }
 
@@ -126,8 +126,8 @@ describe("bodyFat-calculator properties", () => {
       const maleParams = { gender: 'male', waist, neck, height }
       const femaleParams = { gender: 'female', waist, neck, height, hip }
 
-      const resultMale = calculateBodyFatPercentage('male', waist, neck, height)
-      const resultFemale = calculateBodyFatPercentage('female', waist, neck, height, hip)
+      const resultMale = calculateBodyFatPercentage(Gender.male, waist, neck, height)
+      const resultFemale = calculateBodyFatPercentage(Gender.female, waist, neck, height, hip)
 
       if (resultMale === 0 || resultFemale === 0) {
         i--
