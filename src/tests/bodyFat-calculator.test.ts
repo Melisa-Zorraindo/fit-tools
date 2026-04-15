@@ -1,4 +1,4 @@
-import { calculateBodyFatPercentage } from 'bodyFat-calculator.js';
+import { calculateBodyFatPercentage } from '../bodyFat-calculator.js';
 import assert from 'node:assert';
 import { describe, it } from 'node:test';
 import { getInvalidValue, getValidValue, ROUNDS } from './utils.test.js';
@@ -40,8 +40,8 @@ describe("bodyFat-calculator properties", () => {
       const hip = getValidValue(85, 130);
       const height = getValidValue(50, 251);
       const male = Gender.male
-      const maleParams = { gender: male, waist, neck, height }
-      const maleParamsWithHip = { gender: male, waist, neck, height, hip }
+      const maleParams = { gender: Gender.male, waist, neck, height }
+      const maleParamsWithHip = { gender: Gender.male, waist, neck, height, hip }
 
       const maleResult = calculateBodyFatPercentage(male, waist, neck, height)
       const maleResultWithHip = calculateBodyFatPercentage(male, waist, neck, height, hip)
@@ -60,9 +60,9 @@ describe("bodyFat-calculator properties", () => {
       const neck = getValidValue(30, 50);
       const height = getValidValue(50, 251);
       const female = Gender.female
-      const femaleParamsWithNoHip = { gender: female, waist, neck, height }
+      const femaleParamsWithNoHip = { gender: Gender.female, waist, neck, height }
 
-      const result = calculateBodyFatPercentage(female, waist, neck, height)
+      const result = calculateBodyFatPercentage(Gender.female, waist, neck, height)
       assert.ok(
         Number.isFinite(result),
         `Invalid result: ${result} | iteration ${i} | female params with no hip: ${JSON.stringify(femaleParamsWithNoHip)}`
@@ -100,12 +100,12 @@ describe("bodyFat-calculator properties", () => {
 
   it("never returns NaN or Infinity", () => {
     for (let i = 0; i < ROUNDS; i++) {
-      const gender: GenderType = Math.random() > 0.5 ? "male" : "female"
-      const waist = getInvalidValue(Math.random() > 0.5, -500, 0)
-      const neck = getInvalidValue(Math.random() > 0.5, -500, 0)
-      const hip = getInvalidValue(Math.random() > 0.5, -500, 0)
-      const height = getInvalidValue(Math.random() > 0.5, -500, 0)
-      const params = gender === "male"
+      const gender = Math.random() > 0.5 ? Gender.male : Gender.male;
+      const waist = getInvalidValue(Math.random() > 0.5, -500, 0);
+      const neck = getInvalidValue(Math.random() > 0.5, -500, 0);
+      const hip = getInvalidValue(Math.random() > 0.5, -500, 0);
+      const height = getInvalidValue(Math.random() > 0.5, -500, 0);
+      const params = Gender.male
         ? { gender, waist, neck, height }
         : { gender, waist, neck, hip, height }
 
@@ -123,8 +123,8 @@ describe("bodyFat-calculator properties", () => {
       const neck = getValidValue(30, 50);
       const hip = getValidValue(85, 130);
       const height = getValidValue(50, 251);
-      const maleParams = { gender: 'male', waist, neck, height }
-      const femaleParams = { gender: 'female', waist, neck, height, hip }
+      const maleParams = { gender: Gender.male, waist, neck, height }
+      const femaleParams = { gender: Gender.female, waist, neck, height, hip }
 
       const resultMale = calculateBodyFatPercentage(Gender.male, waist, neck, height)
       const resultFemale = calculateBodyFatPercentage(Gender.female, waist, neck, height, hip)
@@ -145,12 +145,12 @@ describe("bodyFat-calculator properties", () => {
   // edge case where waist === neck (circumference = 0)
   it("if waist === neck, it does not return NaN or Infinity", () => {
     for (let i = 0; i < ROUNDS; i++) {
-      const gender: GenderType = Math.random() > 0.5 ? "male" : "female"
+      const gender = Math.random() > 0.5 ? Gender.male : Gender.female
       const waist = 0
       const neck = 0
       const hip = getInvalidValue(Math.random() > 0.5, -500, 0)
       const height = getInvalidValue(Math.random() > 0.5, -500, 0)
-      const params = gender === "male"
+      const params = Gender.male
         ? { gender, waist, neck, height }
         : { gender, waist, neck, hip, height }
 

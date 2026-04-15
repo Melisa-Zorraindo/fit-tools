@@ -15,15 +15,18 @@ export const calculateBodyFatPercentage = (
   gender: Gender, waist: number, neck: number, height: number, hip?: number
 ): number => {
   const coeffs = BODY_FAT_COEFFICIENTS[gender]
-  const circumferenceSum = waist + (gender === 'female' ? (hip || 0) : 0) - neck
-  const result = Math.floor(
+  const circumferenceSum = gender === Gender.female
+    ? waist + (hip || 0) - neck
+    : waist - neck
+
+  const result = Number((
     coeffs.multiplier /
-      (
-        coeffs.baseline
-        - coeffs.circumference * Math.log10(circumferenceSum)
-        + coeffs.height * Math.log10(height)
-      ) - coeffs.constant
-  )
+    (
+      coeffs.baseline
+      - coeffs.circumference * Math.log10(circumferenceSum)
+      + coeffs.height * Math.log10(height)
+    ) - coeffs.constant
+  ).toFixed(2))
 
   return result > 0 ? result : 0
 }
