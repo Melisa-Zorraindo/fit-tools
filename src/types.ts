@@ -7,7 +7,10 @@ export type BmrCoeficcientType = {
   height: number,
   age: number
 }
-export type GenderType = 'male' | 'female'
+export enum Gender {
+  'male',
+  'female'
+}
 
 /* ================================================== 
           Types used in the macro calculator
@@ -27,3 +30,4 @@ export type GoalType = 'moderateLose' |
   'maintain' |
   'mildGain' |
   'moderateGain';
+

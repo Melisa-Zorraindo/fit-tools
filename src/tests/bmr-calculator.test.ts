@@ -2,11 +2,11 @@ import assert from 'node:assert';
 import { describe, it } from 'node:test';
 import { getRandomFloat, getRandomInt } from './utils.test.js';
 import { calculateBmr } from '../bmr-calculator.js'
-import { GenderType } from '../types.js';
+import { Gender } from '../types.js';
 
 describe("bmr-calculator properties", () => {
   it("BMR increases with weight", () => {
-    const gender = Math.random() > 0.5 ? "male" : "female";
+    const gender = Math.random() > 0.5 ? Gender.male : Gender.female;
     const age = getRandomInt(20, 85);
     const weight1 = Math.random() > 0.5
       ? getRandomInt(150, 225)
@@ -23,7 +23,7 @@ describe("bmr-calculator properties", () => {
   })
 
   it("BMR increases with height", () => {
-    const gender = Math.random() > 0.5 ? "male" : "female";
+    const gender = Math.random() > 0.5 ? Gender.male : Gender.female;
     const age = getRandomInt(20, 85);
     const weight = Math.random() > 0.5
       ? getRandomInt(50, 225)
@@ -38,7 +38,7 @@ describe("bmr-calculator properties", () => {
   })
 
   it("BMR decreases with age", () => {
-    const gender = Math.random() > 0.5 ? "male" : "female";
+    const gender = Math.random() > 0.5 ? Gender.male : Gender.female;
     const age1 = getRandomInt(50, 85);
     const age2 = getRandomInt(20, 40);
     const weight = Math.random() > 0.5
@@ -54,7 +54,7 @@ describe("bmr-calculator properties", () => {
 
   it("throws error on incorrect gender", () => {
     // use a cast so TypeScript allows the invalid value we intend to test
-    const gender = "foo" as unknown as GenderType;
+    const gender = "foo" as unknown as Gender;
     const age = getRandomInt(25, 90)
     const weight = Math.random() > 0.5
       ? getRandomInt(55, 230)

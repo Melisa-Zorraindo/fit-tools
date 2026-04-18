@@ -109,6 +109,28 @@ Using body weight:
 const macros = calculateMacros(2000, 40, 30, undefined, 65);
 ```
 
+#### Body fat percentage
+
+Calculates the estimated body fat percentage using the U.S Navy method.
+
+*Parameters*
+
+- gender: 'male' | 'female'
+- waist: integer | float - in centimeters. Waist circumference measured at navel level
+- neck: integer | float - in centimeters. Neck circumference measured below the Adam's apple
+- height: integer | float - in centimeters
+- hip?: integer | float - in centimeters. Hip circumference measured at the widest point of the glutes.
+
+> When hip circumference is provided with gender 'female', the result will be a closer estimate to reality.
+
+*Returns*
+- body fat percentage: integer. Rounded down
+
+*Example*
+```typescript
+const weight = calculateBodyFatPercentage();
+```
+
 #### One-Rep Max (1RM) estimation
 
 All 1RM functions return a number rounded to one decimal place.

@@ -1,16 +1,17 @@
-import type { ActivityLevelType, BmrCoeficcientType, GenderType, GoalType } from "./types.js"
+import { Gender } from "./types.js"
+import type { ActivityLevelType, BmrCoeficcientType, GoalType } from "./types.js"
 
 /* ================================================== 
           constants used in the bmr calculator
    ================================================== */
-export const BMR_COEFFICIENTS: Record<GenderType, BmrCoeficcientType> = {
-  male: {
+export const BMR_COEFFICIENTS: Record<Gender, BmrCoeficcientType> = {
+  [Gender.male]: {
     baseline: 88.36,
     weight: 13.4,
     height: 4.8,
     age: 5.7
   },
-  female: {
+  [Gender.female]: {
     baseline: 447.6,
     weight: 9.2,
     height: 3.1,
@@ -64,3 +65,24 @@ export const COEFFICIENTS: number[][] = [
   [1.000, 0.955, 0.922, 0.892, 0.863, 0.837, 0.811, 0.786, 0.762, 0.739, 0.707, 0.680, 0.654, 0.629, 0.605]
 ]
 export const MINIMUM_RPE: number = 6.5
+
+/* ================================================== 
+          constants used in the body fat calculator
+   ================================================== */
+
+export const BODY_FAT_COEFFICIENTS = {
+  [Gender.male]: {
+    baseline: 1.0324,
+    circumference: 0.19077, // waist-neck girth
+    height: 0.15456,
+    multiplier: 495,
+    constant: 450
+  },
+  [Gender.female]: {
+    baseline: 1.29579,
+    circumference: 0.35004, // waist-hip-neck girth
+    height: 0.22100,
+    multiplier: 495,
+    constant: 450
+  }
+} as const
