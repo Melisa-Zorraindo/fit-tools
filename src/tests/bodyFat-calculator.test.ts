@@ -1,10 +1,10 @@
-import { calculateBodyFatPercentage } from '../bodyFat-calculator.js';
+import { calculateBodyFatPercentage, calculateBodyFatPercentageAda } from '../bodyFat-calculator.js';
 import assert from 'node:assert';
 import { describe, it } from 'node:test';
-import { getInvalidValue, getValidValue, ROUNDS } from './utils.test.js';
+import { getInvalidValue, getValidValue, ROUNDS, getPrototype, getGender } from './utils.test.js';
 import { Gender } from '../types.js';
 
-describe("bodyFat-calculator properties", () => {
+describe("bodyFat-calculator U.S. Navy properties", () => {
   it("body fat percentage decreases with height", () => {
     for (let i = 0; i < ROUNDS; i++) {
       const gender = Math.random() > 0.5 ? Gender.male : Gender.female;
@@ -163,3 +163,110 @@ describe("bodyFat-calculator properties", () => {
     }
   })
 })
+
+describe("bodyFat-calculator American Diabetes Association properties", () => {
+  it("body fat percentage decreases with height", () => {
+    for (let i = 0; i < ROUNDS; i++) {
+      const gender = getGender();
+      const prototype = getPrototype(gender);
+
+      const age = prototype.age;
+      const weight = prototype.weight_kg;
+      const heightOne = gender === 'female' ? 165 : 175;
+      const heightTwo = heightOne + 10;
+      const params = { age, gender, weight }
+
+      const resultOne = calculateBodyFatPercentageAda(age, gender, weight, heightOne)
+      const resultTwo = calculateBodyFatPercentageAda(age, gender, weight, heightTwo)
+
+      const result = resultOne > resultTwo
+      assert.ok(
+        result,
+        `Invalid result: ${result} | iteration ${i} | params: ${JSON.stringify(params)} | height one: ${heightOne} | height two: ${heightTwo}`
+      )
+    }
+  })
+
+  it("body fat percentage increases with weight", () => {
+    for (let i = 0; i < ROUNDS; i++) {
+      const gender = getGender();
+      const prototype = getPrototype(gender);
+
+      const age = prototype.age;
+      const weightOne = prototype.weight_kg;
+      const weightTwo = prototype.weight_kg + 20;
+      const height = prototype.height_cm;
+      const params = { age, gender, height }
+
+      const resultOne = calculateBodyFatPercentageAda(age, gender, weightOne, height)
+      const resultTwo = calculateBodyFatPercentageAda(age, gender, weightTwo, height)
+
+      const result = resultOne < resultTwo
+      assert.ok(
+        result,
+        `Invalid result: ${result} | iteration ${i} | params: ${JSON.stringify(params)} | weight one: ${weightOne} | weight two: ${weightTwo}`
+      )
+    }
+  })
+
+  it("body fat percentage increases with age", () => {
+    for (let i = 0; i < ROUNDS; i++) {
+      const gender = getGender();
+      const prototype = getPrototype(gender);
+
+      const ageOne = prototype.age;
+      const ageTwo = prototype.age + 10;
+      const weight = prototype.weight_kg;
+      const height = prototype.height_cm;
+      const params = { gender, weight, height }
+
+      const resultOne = calculateBodyFatPercentageAda(ageOne, gender, weight, height)
+      const resultTwo = calculateBodyFatPercentageAda(ageTwo, gender, weight, height)
+
+      const result = resultOne < resultTwo
+      assert.ok(
+        result,
+        `Invalid result: ${result} | iteration ${i} | params: ${JSON.stringify(params)} | age one: ${ageOne} | age two: ${ageTwo}`
+      )
+    }
+  })
+
+  it("females have higher body fat than males at equal measurements", () => {
+    for (let i = 0; i < ROUNDS; i++) {
+      const prototype = getPrototype('female');
+
+      const age = prototype.age;
+      const weight = prototype.weight_kg;
+      const height = prototype.height_cm;
+      const params = { age, weight, height }
+
+      const resultOne = calculateBodyFatPercentageAda(age, prototype.gender, weight, height)
+      const resultTwo = calculateBodyFatPercentageAda(age, 'male', weight, height)
+
+      const result = resultOne > resultTwo
+      assert.ok(
+        result,
+        `Invalid result: ${result} | iteration ${i} | params: ${JSON.stringify(params)}`
+      )
+    }
+  })
+
+  it("returns a value within a realistic body fat range", () => {
+    for (let i = 0; i < ROUNDS; i++) {
+      const gender = getGender();
+      const prototype = getPrototype(gender);
+
+      const age = prototype.age;
+      const weight = prototype.weight_kg;
+      const height = prototype.height_cm;
+      const params = { age, gender, weight, height }
+
+      const result = calculateBodyFatPercentageAda(age, gender, weight, height)
+      assert.ok(
+        result > 0 && result < 70,
+        `Invalid result: ${result} | iteration ${i} | params: ${JSON.stringify(params)}`
+      )
+    }
+  })
+})
+
