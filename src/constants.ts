@@ -86,3 +86,18 @@ export const BODY_FAT_COEFFICIENTS = {
     constant: 450
   }
 } as const
+
+/* ============================================================ 
+          constants used in the body fat calculator (Diabetes)
+   ============================================================ */
+export const BMI_COEFFICIENTS: Record<string, number> = {
+  baseline: -44.988,
+  age: 0.503,
+  sex: 10.689,
+  bmi: 3.172,
+  squaredBmi: 0.026,
+  bmiSex: 0.181,
+  bmiAge: 0.02,
+  squaredBmiSex: 0.005,
+  squaredBmiAge: 0.00021
+}

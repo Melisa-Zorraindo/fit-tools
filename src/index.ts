@@ -5,3 +5,4 @@ export {
   calculateOneRepMaxBrzycki, calculateOneRepMaxEpley, calculateOneRepMaxLombardi,
   calculateOneRepMaxOConner, calculateOneRepMaxTuchscherer, calculateWeightToLift
 } from './weightlifting-calculator.js'
+export { calculateBodyFatPercentage, calculateBodyFatPercentageAda } from './bodyFat-calculator.js'

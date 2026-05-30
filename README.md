@@ -9,6 +9,8 @@ It provides formulas for energy expenditure, macronutrients, and one-rep max est
 - BMR (Basal Metabolic Rate) using the Harris–Benedict equation
 - TDEE (Total Daily Energy Expenditure) with activity level and goal adjustments
 - Daily macronutrient distribution calculator
+- Body fat calculator using the U.S. Navy formula
+- Body fat calculator using the American Diabetes Association formula
 
 **Strength training**
 - One-rep max (1RM) estimation formulas:
@@ -109,26 +111,45 @@ Using body weight:
 const macros = calculateMacros(2000, 40, 30, undefined, 65);
 ```
 
-#### Body fat percentage
+#### Body fat percentage (U.S. Navy formula)
 
 Calculates the estimated body fat percentage using the U.S Navy method.
 
 *Parameters*
 
 - gender: 'male' | 'female'
-- waist: integer | float - in centimeters. Waist circumference measured at navel level
-- neck: integer | float - in centimeters. Neck circumference measured below the Adam's apple
-- height: integer | float - in centimeters
-- hip?: integer | float - in centimeters. Hip circumference measured at the widest point of the glutes.
+- waist: integer - in centimeters. Waist circumference measured at navel level
+- neck: integer - in centimeters. Neck circumference measured below the Adam's apple
+- height: integer - in centimeters
+- hip?: integer - in centimeters. Hip circumference measured at the widest point of the glutes.
 
 > When hip circumference is provided with gender 'female', the result will be a closer estimate to reality.
 
 *Returns*
-- body fat percentage: integer. Rounded down
+- body fat percentage: float
 
 *Example*
 ```typescript
-const weight = calculateBodyFatPercentage();
+const bodyFat = calculateBodyFatPercentage('female', 80, 27, 163, 100);
+```
+
+#### Body fat percentage (American Diabetes Association formula)
+
+Calculates the estimated body fat percentage using the American Diabetes Association formula.
+
+*Parameters*
+
+- age: integer
+- gender: 'male' | 'female'
+- weight: integer | float - in kilograms
+- height: integer - in centimeters
+
+*Returns*
+- body fat percentage: float
+
+*Example*
+```typescript
+const bodyFat = calculateBodyFatPercentageAda(42, 'female', 58, 163);
 ```
 
 #### One-Rep Max (1RM) estimation

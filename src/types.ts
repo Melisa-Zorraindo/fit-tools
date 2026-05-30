@@ -7,10 +7,13 @@ export type BmrCoeficcientType = {
   height: number,
   age: number
 }
-export enum Gender {
-  'male',
-  'female'
-}
+
+export type Gender = 'male' | 'female'
+
+export const Gender = {
+  male: 'male',
+  female: 'female',
+} as const satisfies Record<string, Gender>
 
 /* ================================================== 
           Types used in the macro calculator
@@ -30,4 +33,3 @@ export type GoalType = 'moderateLose' |
   'maintain' |
   'mildGain' |
   'moderateGain';
-
