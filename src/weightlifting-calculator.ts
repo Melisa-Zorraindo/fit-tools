@@ -9,7 +9,9 @@ import { convertLiftedRpeToIndex } from "./convertLiftedRpeToIndex.js"
  */
 export const calculateOneRepMaxBrzycki = (
   liftedReps: number, liftedWeight: number
-): number => Number((liftedWeight / (1.0278 - 0.0278 * liftedReps)).toFixed(1))
+): number => {
+  return Number((liftedWeight / (1.0278 - 0.0278 * liftedReps)).toFixed(1))
+}
 
 /**
  * Calculates one rep max using the Epley formula
@@ -19,7 +21,9 @@ export const calculateOneRepMaxBrzycki = (
  */
 export const calculateOneRepMaxEpley = (
   liftedReps: number, liftedWeight: number
-): number => Number((liftedWeight * (1 + liftedReps / 30)).toFixed(1))
+): number => {
+  return Number((liftedWeight * (1 + liftedReps / 30)).toFixed(1))
+}
 
 /**
  * Calculates one rep max using the Lombardi formula
@@ -29,7 +33,9 @@ export const calculateOneRepMaxEpley = (
  */
 export const calculateOneRepMaxLombardi = (
   liftedReps: number, liftedWeight: number
-): number => Number((liftedWeight * Math.pow(liftedReps, 0.10)).toFixed(1))
+): number => {
+  return Number((liftedWeight * Math.pow(liftedReps, 0.10)).toFixed(1))
+}
 
 /**
  * Calculates one rep max using the O'Conner formula
@@ -39,7 +45,9 @@ export const calculateOneRepMaxLombardi = (
  */
 export const calculateOneRepMaxOConner = (
   liftedReps: number, liftedWeight: number
-): number => Number((liftedWeight * (1 + 0.025 * liftedReps)).toFixed(1))
+): number => {
+  return Number((liftedWeight * (1 + 0.025 * liftedReps)).toFixed(1))
+}
 
 /**
  * Calculates one rep max using the Tuchscherer formula
