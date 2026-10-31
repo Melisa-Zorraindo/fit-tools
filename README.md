@@ -6,11 +6,14 @@ It provides formulas for energy expenditure, macronutrients, and one-rep max est
 ## Features
 
 **Energy & nutrition**
-- BMR (Basal Metabolic Rate) using the Harris–Benedict equation
+- BMR (Basal Metabolic Rate):
+  - using the Harris–Benedict equation
+  - using the Mifflin-StJeor equation
 - TDEE (Total Daily Energy Expenditure) with activity level and goal adjustments
 - Daily macronutrient distribution calculator
-- Body fat calculator using the U.S. Navy formula
-- Body fat calculator using the American Diabetes Association formula
+- Body fat calculator:
+  - using the U.S. Navy formula
+  - using the American Diabetes Association formula
 
 **Strength training**
 - One-rep max (1RM) estimation formulas:
@@ -44,7 +47,7 @@ const { calculateBmrHarrisBenedict, calculateTdee, calculateMacros } = require('
 
 ### Calculations
 
-#### Basal Metabolic Rate (BMR)
+#### Basal Metabolic Rate (BMR) using Harris-Benedict formula
 
 Calculates daily calories burned at rest using the Harris-Benedict equation.
 
@@ -61,6 +64,28 @@ Calculates daily calories burned at rest using the Harris-Benedict equation.
 *Example*
 ```typescript
 const bmr = calculateBmrHarrisBenedict('female', 30, 65, 170);
+```
+
+#### Basal Metabolic Rate (BMR) using Mifflin-St Jeor formula
+
+Calculates daily calories burned at rest using the Mifflin-St Jeor equation.
+
+*Parameters*
+
+- gender: 'male' | 'female'
+- age: integer
+- weight: integer | float - in kilograms
+- height: integer - in centimeters
+
+> If gender is anything other than 'female' or 'male', it assumes 'male' instead
+> of throwing.
+
+*Returns*
+- bmr: integer - in calories. Rounded down
+
+*Example*
+```typescript
+const bmr = calculateBmrMifflinStJeor('male', 53, 90.5, 175);
 ```
 
 #### Total Daily Energy Expenditure (TDEE)
