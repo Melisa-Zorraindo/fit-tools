@@ -20,6 +20,17 @@ export const BMR_HARRIS_BENEDICT: Record<Gender, BmrCoeficcientHBType> = {
 }
 
 /* ================================================== 
+        constants used in the bmr Mifflin-StJeor
+   ================================================== */
+export const BMR_MIFFLIN_STJEOR: Record<string, number> = {
+  femaleConstant: 161,
+  maleConstant: 5,
+  weightMultiplier: 10,
+  heightMultiplier: 6.25,
+  ageMultiplier: 5
+}
+
+/* ================================================== 
           constants used in the macro calculator
    ================================================== */
 export const CARBS_CALORIES = 4

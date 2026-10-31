@@ -1,10 +1,10 @@
 import assert from 'node:assert';
 import { describe, it } from 'node:test';
-import { getRandomFloat, getRandomInt } from './utils.test.js';
-import { calculateBmr } from '../bmr-calculator.js'
+import { getGender, getPrototype, getRandomFloat, getRandomInt, getValidValue, ROUNDS } from './utils.test.js';
+import { calculateBmrHarrisBenedict, calculateBmrMifflinStJeor } from '../bmr-calculators.js'
 import { Gender } from '../types.js';
 
-describe("bmr-calculator properties", () => {
+describe("bmr-harrisBenedict properties", () => {
   it("BMR increases with weight", () => {
     const gender = Math.random() > 0.5 ? Gender.male : Gender.female;
     const age = getRandomInt(20, 85);
@@ -17,8 +17,8 @@ describe("bmr-calculator properties", () => {
     const height = getRandomInt(120, 200);
 
     assert.ok(
-      calculateBmr(gender, age, weight1, height) >
-      calculateBmr(gender, age, weight2, height)
+      calculateBmrHarrisBenedict(gender, age, weight1, height) >
+      calculateBmrHarrisBenedict(gender, age, weight2, height)
     );
   })
 
@@ -32,8 +32,8 @@ describe("bmr-calculator properties", () => {
     const height2 = getRandomInt(120, 150);
 
     assert.ok(
-      calculateBmr(gender, age, weight, height1) >
-      calculateBmr(gender, age, weight, height2)
+      calculateBmrHarrisBenedict(gender, age, weight, height1) >
+      calculateBmrHarrisBenedict(gender, age, weight, height2)
     );
   })
 
@@ -47,8 +47,8 @@ describe("bmr-calculator properties", () => {
     const height = getRandomInt(120, 200);
 
     assert.ok(
-      calculateBmr(gender, age1, weight, height) <
-      calculateBmr(gender, age2, weight, height)
+      calculateBmrHarrisBenedict(gender, age1, weight, height) <
+      calculateBmrHarrisBenedict(gender, age2, weight, height)
     );
   })
 
@@ -61,6 +61,76 @@ describe("bmr-calculator properties", () => {
       : getRandomFloat(50, 225);
     const height = getRandomInt(120, 200);
 
-    assert.throws(() => calculateBmr(gender, age, weight, height));
+    assert.throws(() => calculateBmrHarrisBenedict(gender, age, weight, height));
+  })
+})
+
+describe("bmr-MifflinStJeor properties", () => {
+  it("BMR increases with weight", () => {
+    for (let i = 0; i < ROUNDS; i++) {
+      const gender = getGender();
+      const prototype = getPrototype(gender);
+      const weightOne = getValidValue(150, 225);
+      const weightTwo = getValidValue(50, 100);
+
+      const result = calculateBmrMifflinStJeor(
+        gender, prototype.age, weightOne, prototype.height_cm
+      ) > calculateBmrMifflinStJeor(
+        gender, prototype.age, weightTwo, prototype.height_cm
+      )
+
+      assert.ok(
+        result,
+        `Invalid result: ${result} | iteration ${i} | prototype: ${JSON.stringify(prototype)} | weight one: ${weightOne} | weight two: ${weightTwo}`
+      );
+    }
+  })
+
+  it("BMR increases with height", () => {
+    for (let i = 0; i < ROUNDS; i++) {
+      const gender = getGender();
+      const prototype = getPrototype(gender);
+      const heightOne = getRandomInt(160, 200);
+      const heightTwo = getRandomInt(120, 150);
+
+      const result = calculateBmrMifflinStJeor(
+        gender, prototype.age, prototype.weight_kg, heightOne
+      ) > calculateBmrMifflinStJeor(
+        gender, prototype.age, prototype.weight_kg, heightTwo
+      )
+      assert.ok(
+        result,
+        `Invalid result: ${result} | iteration ${i} | prototype: ${JSON.stringify(prototype)} | height one: ${heightOne} | height two: ${heightTwo}`
+      );
+    }
+  })
+
+  it("BMR decreases with age", () => {
+    for (let i = 0; i < ROUNDS; i++) {
+      const gender = getGender();
+      const prototype = getPrototype(gender);
+      const ageOne = getRandomInt(50, 85);
+      const ageTwo = getRandomInt(20, 40);
+
+      const result = calculateBmrMifflinStJeor(
+        gender, ageOne, prototype.weight_kg, prototype.height_cm
+      ) < calculateBmrMifflinStJeor(
+        gender, ageTwo, prototype.weight_kg, prototype.height_cm
+      )
+      assert.ok(
+        result,
+        `Invalid result: ${result} | iteration ${i} | prototype: ${JSON.stringify(prototype)} | age one: ${ageOne} | age two: ${ageTwo}`
+      );
+    }
+  })
+
+  it("assumes 'male' on incorrect gender", () => {
+    // use a cast so TypeScript allows the invalid value we intend to test
+    const gender = "foo" as unknown as Gender;
+    const prototype = getPrototype(Gender.female)
+
+    assert.ok(() => calculateBmrMifflinStJeor(
+      gender, prototype.age, prototype.weight_kg, prototype.height_cm
+    ));
   })
 })
