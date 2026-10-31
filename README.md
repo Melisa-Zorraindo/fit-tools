@@ -47,7 +47,7 @@ const { calculateBmrHarrisBenedict, calculateTdee, calculateMacros } = require('
 
 ### Calculations
 
-#### Basal Metabolic Rate (BMR) using Harris-Benedict formula
+#### Basal Metabolic Rate (BMR - Harris-Benedict formula)
 
 Calculates daily calories burned at rest using the Harris-Benedict equation.
 
@@ -66,7 +66,7 @@ Calculates daily calories burned at rest using the Harris-Benedict equation.
 const bmr = calculateBmrHarrisBenedict('female', 30, 65, 170);
 ```
 
-#### Basal Metabolic Rate (BMR) using Mifflin-St Jeor formula
+#### Basal Metabolic Rate (BMR - Mifflin-St Jeor formula)
 
 Calculates daily calories burned at rest using the Mifflin-St Jeor equation.
 
