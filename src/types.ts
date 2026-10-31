@@ -27,7 +27,12 @@ export type Macros = {
 /* ================================================== 
           Types used in the tdee calculator
    ================================================== */
-export type ActivityLevelType = 'sedentary' | 'light' | 'moderate' | 'heavy';
+export type ActivityLevelType = 'sedentary' |
+  'light' |
+  'moderate' |
+  'heavy' |
+  'veryHeavy';
+
 export type GoalType = 'moderateLose' |
   'mildLose' |
   'maintain' |

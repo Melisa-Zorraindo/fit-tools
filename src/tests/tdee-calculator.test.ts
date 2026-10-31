@@ -6,7 +6,7 @@ import { ActivityLevelType, GoalType } from '../types.js';
 
 describe("tdee-calculator properties", () => {
   const activityLevels: ActivityLevelType[] = ['sedentary', 'light', 'moderate',
-    'heavy'
+    'heavy', 'veryHeavy'
   ];
   const goals: GoalType[] = ['moderateLose', 'mildLose', 'maintain', 'mildGain',
     'moderateGain'
