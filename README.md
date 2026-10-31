@@ -95,7 +95,7 @@ Calculates daily calorie needs based on BMR, activity level, and goal.
 *Parameters*
 
 - bmr: integer - in calories
-- activityLevel: 'sedentary' | 'light' | 'moderate' | 'heavy'
+- activityLevel: 'sedentary' | 'light' | 'moderate' | 'heavy' | 'veryHeavy'
 - goal: 'moderateLose' | 'mildLose' | 'maintain' | 'mildGain' | 'moderateGain'
 
 *Returns*
@@ -106,6 +106,26 @@ Calculates daily calorie needs based on BMR, activity level, and goal.
 ```typescript
 const tdee = calculateTdee(bmr, 'moderate', 'maintain');
 ```
+
+##### About `activityLevel`:
+
+| Label | Training | Daily life |
+| --- | --- | --- |
+| `sedentary` | Little to no exercise | Desk job, mostly sitting |
+| `light` | 1-3 sessions per week | Moderate daily walking |
+| `moderate` | 3-5 sessions per week | Semi-active job (e.g. teacher, retail) |
+| `heavy` | 6-7 sessions per week | Physically demanding job (e.g. construction, nursing) |
+| `veryHeavy` | 2 sessions per day | Very high overall activity |
+
+##### About `goal`:
+
+| Label | Meaning | Effect on calories |
+| --- | --- | --- |
+| `moderateLose` | Faster, more aggressive fat loss | Larger deficit below maintenance |
+| `mildLose` | Slow, sustainable fat loss | Small deficit below maintenance |
+| `maintain` | Keep current weight | No adjustment (TDEE = maintenance) |
+| `mildGain` | Slow, lean weight gain | Small surplus above maintenance |
+| `moderateGain` | Faster weight gain | Larger surplus above maintenance |
 
 #### Macronutrients
 
