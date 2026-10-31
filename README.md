@@ -35,11 +35,11 @@ This package works in Node.js (Node 20+) and in modern frontend frameworks such 
 
 **Using EMS**
 ```typescript
-import { calculateBmr, calculateTdee, calculateMacros } from 'fit-tools';
+import { calculateBmrHarrisBenedict, calculateTdee, calculateMacros } from 'fit-tools';
 ```
 **Using CommonJS**
 ```javascript
-const { calculateBmr, calculateTdee, calculateMacros } = require('fit-tools');
+const { calculateBmrHarrisBenedict, calculateTdee, calculateMacros } = require('fit-tools');
 ```
 
 ### Calculations
@@ -60,7 +60,7 @@ Calculates daily calories burned at rest using the Harris-Benedict equation.
 
 *Example*
 ```typescript
-const bmr = calculateBmr('female', 30, 65, 170);
+const bmr = calculateBmrHarrisBenedict('female', 30, 65, 170);
 ```
 
 #### Total Daily Energy Expenditure (TDEE)

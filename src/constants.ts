@@ -1,10 +1,10 @@
 import { Gender } from "./types.js"
-import type { ActivityLevelType, BmrCoeficcientType, GoalType } from "./types.js"
+import type { ActivityLevelType, BmrCoeficcientHBType, GoalType } from "./types.js"
 
 /* ================================================== 
-          constants used in the bmr calculator
+        constants used in the bmr Harris-Benedict
    ================================================== */
-export const BMR_COEFFICIENTS: Record<Gender, BmrCoeficcientType> = {
+export const BMR_HARRIS_BENEDICT: Record<Gender, BmrCoeficcientHBType> = {
   [Gender.male]: {
     baseline: 88.36,
     weight: 13.4,
@@ -34,6 +34,7 @@ export const ACTIVITY_LEVEL_COEFFICIENTS: Record<ActivityLevelType, number> = {
   light: 1.375,
   moderate: 1.55,
   heavy: 1.725,
+  veryHeavy: 1.9
 };
 export const GOAL_MULTIPLIERS: Record<GoalType, number> = {
   moderateLose: 0.85,

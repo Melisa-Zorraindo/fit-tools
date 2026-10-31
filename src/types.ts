@@ -1,7 +1,7 @@
 /* ================================================== 
-          Types used in the bmr calculator
+        Types used in the bmr Harris-Benedict
    ================================================== */
-export type BmrCoeficcientType = {
+export type BmrCoeficcientHBType = {
   baseline: number,
   weight: number,
   height: number,
