@@ -6,11 +6,14 @@ It provides formulas for energy expenditure, macronutrients, and one-rep max est
 ## Features
 
 **Energy & nutrition**
-- BMR (Basal Metabolic Rate) using the Harris–Benedict equation
+- BMR (Basal Metabolic Rate):
+  - using the Harris–Benedict equation
+  - using the Mifflin-StJeor equation
 - TDEE (Total Daily Energy Expenditure) with activity level and goal adjustments
 - Daily macronutrient distribution calculator
-- Body fat calculator using the U.S. Navy formula
-- Body fat calculator using the American Diabetes Association formula
+- Body fat calculator:
+  - using the U.S. Navy formula
+  - using the American Diabetes Association formula
 
 **Strength training**
 - One-rep max (1RM) estimation formulas:
@@ -35,16 +38,16 @@ This package works in Node.js (Node 20+) and in modern frontend frameworks such 
 
 **Using EMS**
 ```typescript
-import { calculateBmr, calculateTdee, calculateMacros } from 'fit-tools';
+import { calculateBmrHarrisBenedict, calculateTdee, calculateMacros } from 'fit-tools';
 ```
 **Using CommonJS**
 ```javascript
-const { calculateBmr, calculateTdee, calculateMacros } = require('fit-tools');
+const { calculateBmrHarrisBenedict, calculateTdee, calculateMacros } = require('fit-tools');
 ```
 
 ### Calculations
 
-#### Basal Metabolic Rate (BMR)
+#### Basal Metabolic Rate (BMR - Harris-Benedict formula)
 
 Calculates daily calories burned at rest using the Harris-Benedict equation.
 
@@ -60,7 +63,29 @@ Calculates daily calories burned at rest using the Harris-Benedict equation.
 
 *Example*
 ```typescript
-const bmr = calculateBmr('female', 30, 65, 170);
+const bmr = calculateBmrHarrisBenedict('female', 30, 65, 170);
+```
+
+#### Basal Metabolic Rate (BMR - Mifflin-St Jeor formula)
+
+Calculates daily calories burned at rest using the Mifflin-St Jeor equation.
+
+*Parameters*
+
+- gender: 'male' | 'female'
+- age: integer
+- weight: integer | float - in kilograms
+- height: integer - in centimeters
+
+> If gender is anything other than 'female' or 'male', it assumes 'male' instead
+> of throwing.
+
+*Returns*
+- bmr: integer - in calories. Rounded down
+
+*Example*
+```typescript
+const bmr = calculateBmrMifflinStJeor('male', 53, 90.5, 175);
 ```
 
 #### Total Daily Energy Expenditure (TDEE)
@@ -70,7 +95,7 @@ Calculates daily calorie needs based on BMR, activity level, and goal.
 *Parameters*
 
 - bmr: integer - in calories
-- activityLevel: 'sedentary' | 'light' | 'moderate' | 'heavy'
+- activityLevel: 'sedentary' | 'light' | 'moderate' | 'heavy' | 'veryHeavy'
 - goal: 'moderateLose' | 'mildLose' | 'maintain' | 'mildGain' | 'moderateGain'
 
 *Returns*
@@ -81,6 +106,26 @@ Calculates daily calorie needs based on BMR, activity level, and goal.
 ```typescript
 const tdee = calculateTdee(bmr, 'moderate', 'maintain');
 ```
+
+##### About `activityLevel`:
+
+| Label | Training | Daily life |
+| --- | --- | --- |
+| `sedentary` | Little to no exercise | Desk job, mostly sitting |
+| `light` | 1-3 sessions per week | Moderate daily walking |
+| `moderate` | 3-5 sessions per week | Semi-active job (e.g. teacher, retail) |
+| `heavy` | 6-7 sessions per week | Physically demanding job (e.g. construction, nursing) |
+| `veryHeavy` | 2 sessions per day | Very high overall activity |
+
+##### About `goal`:
+
+| Label | Meaning | Effect on calories |
+| --- | --- | --- |
+| `moderateLose` | Faster, more aggressive fat loss | Larger deficit below maintenance |
+| `mildLose` | Slow, sustainable fat loss | Small deficit below maintenance |
+| `maintain` | Keep current weight | No adjustment (TDEE = maintenance) |
+| `mildGain` | Slow, lean weight gain | Small surplus above maintenance |
+| `moderateGain` | Faster weight gain | Larger surplus above maintenance |
 
 #### Macronutrients
 

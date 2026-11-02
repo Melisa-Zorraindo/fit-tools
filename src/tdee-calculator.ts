@@ -15,9 +15,10 @@ export const calculateTdee = (
     activityLevel !== "sedentary" &&
     activityLevel !== "light" &&
     activityLevel !== "moderate" &&
-    activityLevel !== "heavy"
+    activityLevel !== "heavy" &&
+    activityLevel !== "veryHeavy"
   ) {
-    throw new Error("Activity level must be one of: 'sedentary', 'light', 'moderate', 'heavy'");
+    throw new Error("Activity level must be one of: 'sedentary', 'light', 'moderate', 'heavy', 'veryHeavy");
   };
 
   if (
