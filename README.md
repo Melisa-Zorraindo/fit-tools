@@ -100,7 +100,7 @@ Calculates daily calorie needs based on BMR, activity level, and goal.
 
 *Returns*
 
-- tdee: integer - in calories
+- tdee: integer - in calories. Rounded down
 
 *Example*
 ```typescript
