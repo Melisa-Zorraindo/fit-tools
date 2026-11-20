@@ -2,13 +2,13 @@ import assert from 'node:assert';
 import { describe, it } from 'node:test';
 import { getRandomInt } from './utils.test.js';
 import { calculateTdee } from '../tdee-calculator.js'
-import { ActivityLevelType, GoalType } from '../types.js';
+import { ActivityLevel, Goal } from '../types.js';
 
 describe("tdee-calculator properties", () => {
-  const activityLevels: ActivityLevelType[] = ['sedentary', 'light', 'moderate',
+  const activityLevels: ActivityLevel[] = ['sedentary', 'light', 'moderate',
     'heavy', 'veryHeavy'
   ];
-  const goals: GoalType[] = ['moderateLose', 'mildLose', 'maintain', 'mildGain',
+  const goals: Goal[] = ['moderateLose', 'mildLose', 'maintain', 'mildGain',
     'moderateGain'
   ];
 
@@ -75,16 +75,16 @@ describe("tdee-calculator properties", () => {
 
   it("throws error on incorrect activity level", () => {
     const bmr = 750;
-    const activityLevel = "foo" as unknown as ActivityLevelType;
-    const goal: GoalType = 'maintain';
+    const activityLevel = "foo" as unknown as ActivityLevel;
+    const goal: Goal = 'maintain';
 
     assert.throws(() => calculateTdee(bmr, activityLevel, goal));
   });
 
   it("throws error on incorrect goal", () => {
     const bmr = getRandomInt(600, 1000);
-    const activityLevel: ActivityLevelType = 'moderate';
-    const goal = "foo" as unknown as GoalType;
+    const activityLevel: ActivityLevel = 'moderate';
+    const goal = "foo" as unknown as Goal;
 
     assert.throws(() => calculateTdee(bmr, activityLevel, goal));
   });

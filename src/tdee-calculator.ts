@@ -1,5 +1,5 @@
 import { ACTIVITY_LEVEL_COEFFICIENTS, GOAL_MULTIPLIERS } from "./constants.js";
-import type { ActivityLevelType, GoalType } from "./types.js";
+import type { ActivityLevel, Goal } from "./types.js";
 
 /**
  * Calculates Total Daily Energy Expenditure (TDEE) based on BMR, activity level and goal
@@ -9,7 +9,7 @@ import type { ActivityLevelType, GoalType } from "./types.js";
  * @returns {number} The calculated TDEE in calories
  */
 export const calculateTdee = (
-  bmr: number, activityLevel: ActivityLevelType, goal: GoalType
+  bmr: number, activityLevel: ActivityLevel, goal: Goal
 ): number => {
   if (
     activityLevel !== "sedentary" &&
@@ -18,7 +18,9 @@ export const calculateTdee = (
     activityLevel !== "heavy" &&
     activityLevel !== "veryHeavy"
   ) {
-    throw new Error("Activity level must be one of: 'sedentary', 'light', 'moderate', 'heavy', 'veryHeavy");
+    throw new Error(
+      "Activity level must be one of: 'sedentary', 'light', 'moderate', 'heavy', 'veryHeavy'"
+    );
   };
 
   if (
@@ -28,10 +30,12 @@ export const calculateTdee = (
     goal !== "mildGain" &&
     goal !== "moderateGain"
   ) {
-    throw new Error("Goal must be one of: 'moderateLose', 'mildLose', 'maintain', 'mildGain', 'moderateGain'");
+    throw new Error(
+      "Goal must be one of: 'moderateLose', 'mildLose', 'maintain', 'mildGain', 'moderateGain'"
+    );
   };
 
   const activityCoefficient = ACTIVITY_LEVEL_COEFFICIENTS[activityLevel];
   const goalMultiplier = GOAL_MULTIPLIERS[goal];
-  return bmr * activityCoefficient * goalMultiplier;
+  return Math.floor(bmr * activityCoefficient * goalMultiplier);
 };
