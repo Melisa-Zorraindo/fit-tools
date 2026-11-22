@@ -37,10 +37,19 @@ This package works in Node.js (Node 20+) and in modern frontend frameworks such 
 ### Importing
 
 **Using EMS**
+
 ```typescript
 import { calculateBmrHarrisBenedict, calculateTdee, calculateMacros } from 'fit-tools';
 ```
+
+**Importing types**
+
+```typescript
+import type { ActivityLevel, Goal } from 'fit-tools';
+```
+
 **Using CommonJS**
+
 ```javascript
 const { calculateBmrHarrisBenedict, calculateTdee, calculateMacros } = require('fit-tools');
 ```
