@@ -68,7 +68,8 @@ export const calculateOneRepMaxTuchscherer = (
 export const calculateWeightToLift = (
   desiredReps: number, desiredRpe: number, oneRepMax: number
 ): number => {
-  const wantedRpe: number[] = COEFFICIENTS[desiredRpe]
+  const rpe = convertLiftedRpeToIndex(desiredRpe)
+  const wantedRpe: number[] = COEFFICIENTS[rpe]
   const coeffForRecommendedWeight: number = wantedRpe[desiredReps - 1]
 
   return Number((oneRepMax * coeffForRecommendedWeight).toFixed(1))

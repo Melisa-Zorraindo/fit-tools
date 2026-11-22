@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 import { describe, it } from 'node:test';
-import { getGender, getPrototype, getRandomFloat, getRandomInt, getValidValue, ROUNDS } from './utils.test.js';
+import { getGender, getPrototype, getRandomInt, getValidValue, ROUNDS } from './utils.test.js';
 import { calculateBmrHarrisBenedict, calculateBmrMifflinStJeor } from '../bmr-calculators.js'
 import { Gender } from '../types.js';
 

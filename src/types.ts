@@ -1,7 +1,7 @@
 /* ================================================== 
         Types used in the bmr Harris-Benedict
    ================================================== */
-export type BmrCoeficcientHBType = {
+export type BmrCoefficientHB = {
   baseline: number,
   weight: number,
   height: number,
@@ -27,13 +27,13 @@ export type Macros = {
 /* ================================================== 
           Types used in the tdee calculator
    ================================================== */
-export type ActivityLevelType = 'sedentary' |
+export type ActivityLevel = 'sedentary' |
   'light' |
   'moderate' |
   'heavy' |
   'veryHeavy';
 
-export type GoalType = 'moderateLose' |
+export type Goal = 'moderateLose' |
   'mildLose' |
   'maintain' |
   'mildGain' |

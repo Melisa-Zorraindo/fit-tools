@@ -6,3 +6,4 @@ export {
   calculateOneRepMaxOConner, calculateOneRepMaxTuchscherer, calculateWeightToLift
 } from './weightlifting-calculator.js'
 export { calculateBodyFatPercentage, calculateBodyFatPercentageAda } from './bodyFat-calculator.js'
+export type { ActivityLevel, BmrCoefficientHB, Gender, Goal, Macros } from './types.js'
