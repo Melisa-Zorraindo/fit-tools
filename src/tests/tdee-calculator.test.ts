@@ -20,6 +20,14 @@ describe("tdee-calculator properties", () => {
     assert.ok(!isNaN(result) && Number.isFinite(result));
   });
 
+  it("returns a rounded down number", () => {
+    const bmr = getRandomInt(530, 1300);
+    const activityLevel = activityLevels[getRandomInt(0, activityLevels.length - 1)];
+    const goal = goals[getRandomInt(0, goals.length - 1)];
+    const result = calculateTdee(bmr, activityLevel, goal);
+    assert.ok(result % 1 === 0);
+  });
+
   it("as bmr increases, tdee increases", () => {
     const bmr1 = getRandomInt(400, 800);
     const bmr2 = getRandomInt(801, 1000);
