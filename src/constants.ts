@@ -1,5 +1,5 @@
 import { Gender } from "./types.js"
-import type { ActivityLevel, BmrCoefficientHB, Goal } from "./types.js"
+import type { ActivityLevel, BmiCategory, BmrCoefficientHB, Goal } from "./types.js"
 
 /* ================================================== 
         constants used in the bmr Harris-Benedict
@@ -33,9 +33,9 @@ export const BMR_MIFFLIN_STJEOR: Record<string, number> = {
 /* ================================================== 
           constants used in the macro calculator
    ================================================== */
-export const CARBS_CALORIES = 4
-export const FAT_CALORIES = 9
-export const PROTEIN_CALORIES = 4
+export const CARBS_CALORIES: number = 4
+export const FAT_CALORIES: number = 9
+export const PROTEIN_CALORIES: number = 4
 
 /* ================================================== 
           constants used in the tdee calculator
@@ -113,3 +113,15 @@ export const BMI_COEFFICIENTS: Record<string, number> = {
   squaredBmiSex: 0.005,
   squaredBmiAge: 0.00021
 }
+
+/* ============================================================ 
+          constants used in the bmi calculator
+   ============================================================ */
+export const BMI_CATEGORIES: { max: number, category: BmiCategory }[] = [
+  { max: 18.5, category: 'underweight' },
+  { max: 25, category: 'healthy' },
+  { max: 30, category: 'overweight' },
+  { max: 35, category: 'class 1 obesity' },
+  { max: 40, category: 'class 2 obesity' },
+  { max: Infinity, category: 'class 3 obesity' }
+]
