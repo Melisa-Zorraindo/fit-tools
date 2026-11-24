@@ -38,3 +38,18 @@ export type Goal = 'moderateLose' |
   'maintain' |
   'mildGain' |
   'moderateGain';
+
+/* ================================================== 
+          Types used in the BMI calculator
+   ================================================== */
+export type BmiCategory = 'underweight' |
+  'healthy' |
+  'overweight' |
+  'class 1 obesity' |
+  'class 2 obesity' |
+  'class 3 obesity';
+
+export type BMI = {
+  bmi: number,
+  category: BmiCategory
+}

@@ -1,9 +1,15 @@
-export { calculateBmrHarrisBenedict, calculateBmrMifflinStJeor } from './bmr-calculators.js'
+export {
+  calculateBmrHarrisBenedict, calculateBmrMifflinStJeor
+} from './bmr-calculators.js'
 export { calculateMacros } from './macro-calculators.js'
 export { calculateTdee } from './tdee-calculator.js'
 export {
   calculateOneRepMaxBrzycki, calculateOneRepMaxEpley, calculateOneRepMaxLombardi,
   calculateOneRepMaxOConner, calculateOneRepMaxTuchscherer, calculateWeightToLift
 } from './weightlifting-calculator.js'
-export { calculateBodyFatPercentage, calculateBodyFatPercentageAda } from './bodyFat-calculator.js'
-export type { ActivityLevel, BmrCoefficientHB, Gender, Goal, Macros } from './types.js'
+export {
+  calculateBodyFatPercentage, calculateBodyFatPercentageAda
+} from './bodyFat-calculator.js'
+export type {
+  ActivityLevel, BMI, BmiCategory, BmrCoefficientHB, Gender, Goal, Macros
+} from './types.js'
